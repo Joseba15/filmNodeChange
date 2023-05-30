@@ -3,9 +3,9 @@ const {dbConnection} = require('./database/config')
 const app= express();
 require('dotenv').config()
 
+const film = require('./routes/film')
 
-
-
+//MIDDLEWARE
 app.use(express.json());
 
 async function connectAtlas(){
@@ -14,6 +14,8 @@ async function connectAtlas(){
 connectAtlas()
 
 
+//ROUTES
+app.use('/film', film)
 
 
 

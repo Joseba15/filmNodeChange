@@ -18,6 +18,11 @@ const FilmSchema = Schema({
         type: String,
         required: [true, 'El genero es obligatorio'],
     },
+    productor:{
+        type:Schema.Types.ObjectId,
+        ref: 'Productor',
+        required: true  
+    },
 });
 
 module.exports = model( 'Film', FilmSchema );
