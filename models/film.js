@@ -18,7 +18,7 @@ const FilmSchema = Schema({
         type: String,
         required: [true, 'El genero es obligatorio'],
     },
-    productor:{
+    productores:{
         type:Schema.Types.ObjectId,
         ref: 'Productor',
         required: true  

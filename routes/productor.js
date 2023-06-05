@@ -1,23 +1,23 @@
 const express = require('express')
 const router = express.Router()
 
-const {getFilms,getFilmById,addFilm,delFilm,updateFilm} = require('../controller/film')
+const {addProductor,delProductor,getProductorById,getProductors,updateProductor} = require('../controller/productor')
 
 
-router.get('/', getFilms);
+router.get('/', getProductors);
 router.get('/:id',[
     check('id','No es un id correcto').isMongoId(),
-],getFilmById);
+],getProductorById);
 
-router.post('/', addFilm );
+router.post('/', addProductor );
 
 router.put('/:id',[
     check('id','No es un id correcto').isMongoId(),
-], updateFilm );
+], updateProductor );
 
 router.delete('/:id', [
     check('id','No es un id correcto').isMongoId(),
-],delFilm);
+],delProductor);
 
 module.exports = router;
 

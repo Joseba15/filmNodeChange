@@ -31,7 +31,7 @@ const addFilm = async(req, res) => {
 
     if (aux == null) {
         await film.save();
-        res.json( airport)
+        res.json( film)
         
     }else{
         return res.status(400).json({
@@ -44,11 +44,31 @@ const addFilm = async(req, res) => {
 
 const delFilm = async(req = request, res= response) => {
     const id = req.params.id;
-    if (condition) {
+    const aux = await Film.findById(id)
+
+    if (aux!=null) {
+        const remove = await Film.remove(id);
+        res.json(remove)
         
+    }else{
+        return res.status(400).json({
+            msg : `Cannot remove a film wich doesnt exist`
+        });
     }
-    const remove = await Film.findByIdAndRemove(id);
-    res.json(remove)
 }
 
-module.exports = {getFilms,getFilmById,addFilm,delFilm}
+
+const updateFilm = async (req = request, res = response) => {
+    const id = req.params.id;
+
+    const {_id,...filmBody} = req.body;
+    const film= await Film.findById(id);
+
+    const updateFilm = await Film.findByIdAndUpdate(id,filmBody);
+
+    res.json(film)
+
+}
+
+
+module.exports = {getFilms,getFilmById,addFilm,delFilm,updateFilm}
