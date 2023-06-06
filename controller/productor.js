@@ -10,8 +10,7 @@ const getProductors= async(req = request,res= response) =>{
 const getProductorById = async (req = request,res= response) =>{
     const id = req.params.id;
 
-    const productor = await Productor.findById( id)
-    // console.log('Productor',Productor);
+    const productor = await Productor.findById(id)
     if (productor == null) {
         return res.status(400).json({
             msg : `Productor  doesnt exits`
@@ -27,17 +26,17 @@ const addProductor = async(req, res) => {
     const { name,address} = req.body;
     
     const productor = new Productor({name,address})
-    const aux = await productor.findById(productor.id)
+    // const aux = await productor.findById(productor.id)
 
-    if (aux == null) {
+   
         await productor.save();
         res.json( productor)
         
-    }else{
-        return res.status(400).json({
-            msg : `Productor already exits`
-        });
-    }
+    
+        // return res.status(400).json({
+        //     msg : `Productor already exits`
+        // });
+    
 
 }
 
@@ -47,7 +46,7 @@ const delProductor = async(req = request, res= response) => {
     const aux = await Productor.findById(id)
 
     if (aux!=null) {
-        const remove = await Productor.remove(id);
+        const remove = await Productor.findOneAndRemove(id);
         res.json(remove)
         
     }else{
@@ -62,11 +61,11 @@ const updateProductor = async (req = request, res = response) => {
     const id = req.params.id;
 
     const {_id,...productorBody} = req.body;
-    const Productor= await Productor.findById(id);
+    const productor= await Productor.findById(id);
 
     const updateProductor = await Productor.findByIdAndUpdate(id,productorBody);
 
-    res.json(updateProductor)
+    res.json(productor)
 
 }
 

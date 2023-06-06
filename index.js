@@ -5,6 +5,7 @@ require('dotenv').config()
 
 const film = require('./routes/film')
 const productor = require('./routes/productor')
+const user = require('./routes/user')
 
 //MIDDLEWARE
 app.use(express.json());
@@ -18,6 +19,7 @@ connectAtlas()
 //ROUTES
 app.use('/film', film)
 app.use('/productor', productor)
+app.use('/user', user)
 
 
 app.listen(process.env.PORT);

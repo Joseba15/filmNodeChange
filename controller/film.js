@@ -24,9 +24,9 @@ const getFilmById = async (req = request,res= response) =>{
 
 const addFilm = async(req, res) => {
 
-    const { title, duration, country, genre,productor } = req.body;
+    const { title, duration, country, genre, productores } = req.body;
     
-    const film = new Film({ title, duration, country, genre,productor})
+    const film = new Film({ title, duration, country, genre,productores})
     const aux = await Film.findById(film.id)
 
     if (aux == null) {
@@ -47,7 +47,7 @@ const delFilm = async(req = request, res= response) => {
     const aux = await Film.findById(id)
 
     if (aux!=null) {
-        const remove = await Film.remove(id);
+        const remove = await Film.findByIdAndRemove(id);
         res.json(remove)
         
     }else{

@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const { check } = require('express-validator')
+
 
 const {getFilms,getFilmById,addFilm,delFilm,updateFilm} = require('../controller/film')
 
