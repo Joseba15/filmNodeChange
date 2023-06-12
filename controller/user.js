@@ -4,10 +4,29 @@ const bcryptjs = require('bcryptjs')
 const { genJWT } = require('../helpers/genJWT')
 
 const getUsers= async(req,res) =>{
-    const { limit=5, skip=0} = req.query;
-    const users = await User.find({state: true}).limit(Number(limit)).skip(Number(skip))
-    res.json({ limit, skip, users})
+   
+    const user = await User.find()
+    res.json({user})
 }
+
+const updateUser = async (req = request, res = response) => {
+    const id = req.params;
+    const {_id,  ...userBody} = req.body;
+    
+    const salt = bcryptjs.genSaltSync();
+    userBody.password = bcryptjs.hashSync( userBody.password, salt );
+    const user = await User.findByIdAndUpdate(id,userBody)
+
+    res.json(user)
+
+}
+
+const delUser = async(req = request, res= response) => {
+    const id = req.params.id;
+    const userDelete = await User.findByIdAndRemoved(id)
+    res.json({ userDelete})
+}
+
 
 const signup = async(req, res) => {
 
@@ -37,8 +56,8 @@ const signup = async(req, res) => {
 
  const login = async(req=request, res=response) =>{
     const { correo, password} = req.body
-    const user = await User.findOne(correo)
-    const validPassword = bcryptjs.compareSync(password, user.password) 
+    const user = await User.findOne({ "correo": correo })
+    const validPassword = bcryptjs.compareSync(password, user.password)
 
     if(!user){
         res.status(400) .json( {mensage: 'El usuario no existe'})
@@ -53,4 +72,4 @@ const signup = async(req, res) => {
 
 
 
-module.exports = { signup,login,getUsers }
+module.exports = { signup,login,getUsers,updateUser,delUser }

@@ -44,7 +44,7 @@ const addFilm = async(req, res) => {
 
 const delFilm = async(req = request, res= response) => {
     const id = req.params.id;
-    const aux = await Film.findById(id)
+    // const aux = await Film.findById(id)
 
     if (aux!=null) {
         const remove = await Film.findByIdAndRemove(id);
@@ -66,7 +66,7 @@ const updateFilm = async (req = request, res = response) => {
 
     const updateFilm = await Film.findByIdAndUpdate(id,filmBody);
 
-    res.json(film)
+    res.json(updateFilm)
 
 }
 
