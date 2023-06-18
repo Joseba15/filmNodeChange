@@ -4,6 +4,7 @@ const User = require('../models/user')
 
 const validateJWT = async (req=request, res=response, next) => {
     const token = req.header('x-token');
+    console.log(token);
     if(!token){
         return res.status(401).json({
             msg: 'No hay token en la petición'
@@ -17,18 +18,17 @@ const validateJWT = async (req=request, res=response, next) => {
                 msg: 'Token no válido - usuario no existe'
             })  
         }
-        if (!user.state) {
-            return res.status(401).json({
-                msg: 'Token no válido - usuario deshabilitado'
-            })
-        }
         req.user = user;
         next();
 
     }
     catch(error){
-        console.log(error)
+        console.log(error);
+        return res.status(401).json({
+            msg: 'Token inválido'
+          });
     }
+
 }
 
 module.exports = {
