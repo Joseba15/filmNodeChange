@@ -19,7 +19,7 @@ router.post('/signup', [
 ],signup );
 router.post('/login', [
     check('password', 'la contraseña es requerida').not().isEmpty(),
-    check('password', 'Password must be between 6 and 12 characters').isLength({ min: 6 }),
+    check('password', 'Password must be between 6 ').isLength({ min: 6 }),
     check('correo', 'El correo es requerido').not().isEmpty(),
     check('correo', 'El correo no es válido').isEmail(),
     validarCampos
@@ -28,7 +28,7 @@ router.put('/:id', [
     validateJWT,
     check('id','Tiene que ser un id valido').isMongoId(),
     check('password', 'la contraseña es requerida').not().isEmpty(),
-    check('password', 'Password must be between 6 and 12 characters').isLength({ min: 6 }),
+    check('password', 'Password must be between 6 ').isLength({ min: 6 }),
     check('correo', 'El correo es requerido').not().isEmpty(),
     check('correo', 'El correo no es válido').isEmail(),
     validarCampos
