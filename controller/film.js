@@ -23,8 +23,25 @@ const getFilmById = async (req = request,res= response) =>{
     }else{
         res.json({film})
     }
-
 }
+
+const getFilmParam = async (req = request,res= response) =>{
+    const current_url = new URL('http://localhost:8000/film?id=6475b3049e0120db6b1dc84a');
+    const search_params = current_url.searchParams;
+
+    const id= search_params.get('id');
+
+    const film = await Film.findById(id)
+    
+    if (film == null) {
+        return res.status(400).json({
+            msg : `Film  doesnt exits`
+        });
+    }else{
+        res.json({film})
+    }
+}
+
 
 const addFilm = async(req, res) => {
 
@@ -91,4 +108,4 @@ const updateFilm = async (req = request, res = response) => {
     }
 
 
-module.exports = {getFilms,getFilmById,addFilm,delFilm,updateFilm}
+module.exports = {getFilms,getFilmById,addFilm,delFilm,updateFilm,getFilmParam}

@@ -6,9 +6,9 @@ const { validateJWT } = require('../middlewares/validate-jwt')
 
 
 
-const {getFilms,getFilmById,addFilm,delFilm,updateFilm} = require('../controller/film')
+const {getFilms,getFilmById,addFilm,delFilm,updateFilm,getFilmParam} = require('../controller/film')
 
-
+router.get('/params',getFilmParam);
 router.get('/', getFilms);
 router.get('/:id',[
     check('id','No es un id correcto').isMongoId(),

@@ -1,5 +1,5 @@
 const { request, response } = require('express')
-const {uploadFile} = require('../helpers/uploadFiles')
+const {uploadFile} = require('../helpers/uploadFile')
 const User = require('../models/user');
 const Film = require('../models/film');
 const path = require('path');
@@ -12,7 +12,6 @@ const uploadFileC= async (req = request, res = response) => {
     try {
        const name =  await uploadFile(file)
        console.log(file);
-    //    const res = cloudinary.uploader.upload( file , {public_id: "olympic_flag"})
 
         res.json(name);
 
